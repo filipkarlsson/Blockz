@@ -1,0 +1,10 @@
+#files for git to ignore
+*~
+~*
+*.a
+*.o
+*.cbp
+*.layout
+*.depend
+/bin
+/obj
