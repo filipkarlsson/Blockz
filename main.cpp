@@ -5,47 +5,33 @@
 #endif
 
 #include <SDL/SDL.h>
+#include <vector>
+#include <iostream>
+#include "var.h"
+#include "TetrisForm.h"
+#include "func.h"
 
 int main ( int argc, char** argv )
 {
+
+    TetrisForm temp(100, 100, true, random_block());
+    all_blocks.push_back(temp);
+
+    TetrisForm temp1(100, 400, false, random_block());
+    all_blocks.push_back(temp1);
+
+//TetrisForm test(100, 0, 'J');
+    init();
     // initialize SDL video
-    if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-    {
-        printf( "Unable to init SDL: %s\n", SDL_GetError() );
-        return 1;
-    }
 
-    // make sure SDL cleans up before exit
-    atexit(SDL_Quit);
 
-    // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(640, 480, 16,
-                                           SDL_HWSURFACE|SDL_DOUBLEBUF);
-    if ( !screen )
-    {
-        printf("Unable to set 640x480 video: %s\n", SDL_GetError());
-        return 1;
-    }
-
-    // load an image
-    SDL_Surface* bmp = SDL_LoadBMP("cb.bmp");
-    if (!bmp)
-    {
-        printf("Unable to load bitmap: %s\n", SDL_GetError());
-        return 1;
-    }
-    
-    // centre the bitmap on screen
-    SDL_Rect dstrect;
-    dstrect.x = (screen->w - bmp->w) / 2;
-    dstrect.y = (screen->h - bmp->h) / 2;
 
     // program main loop
     bool done = false;
     while (!done)
     {
         // message processing loop
-        SDL_Event event;
+
         while (SDL_PollEvent(&event))
         {
             // check for messages
@@ -62,27 +48,53 @@ int main ( int argc, char** argv )
                     // exit if ESCAPE is pressed
                     if (event.key.keysym.sym == SDLK_ESCAPE)
                         done = true;
+
+
+                    if(event.key.keysym.sym == SDLK_SPACE)
+                    {
+                        TetrisForm temp(100, 100, true, random_block());
+                        all_blocks.push_back(temp);
+                    }
                     break;
                 }
             } // end switch
+
+
+        //handle input for tetris blocks
+        for(unsigned int i=0; i < all_blocks.size(); i++)
+        {
+        all_blocks[i].handle_input();
+        }
+
+//all_blocks[0].handle_input();
+
+
         } // end of message processing
 
+        //move tetris blocks down
+
+        for(unsigned int i=0; i < all_blocks.size(); i++)
+        {
+        all_blocks[i].move();
+        }
+        //all_blocks[0].move();
+
         // DRAWING STARTS HERE
-        
+        //all_blocks[index].print();
         // clear screen
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
-        // draw bitmap
-        SDL_BlitSurface(bmp, 0, screen, &dstrect);
+        //draw tetrs blocks to screen
 
-        // DRAWING ENDS HERE
+        for(unsigned int i=0; i < all_blocks.size(); i++)
+        {
+        all_blocks[i].draw();
+        }
 
         // finally, update the screen :)
         SDL_Flip(screen);
-    } // end main loop
 
-    // free loaded bitmap
-    SDL_FreeSurface(bmp);
+    } // end main loop
 
     // all is well ;)
     printf("Exited cleanly\n");
