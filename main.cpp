@@ -10,26 +10,20 @@
 #include "var.h"
 #include "TetrisForm.h"
 #include "func.h"
+#include "timer.h"
 
 int main ( int argc, char** argv )
 {
-
-    TetrisForm temp(100, 100, true, random_block());
-    all_blocks.push_back(temp);
-
-    TetrisForm temp1(100, 400, false, random_block());
-    all_blocks.push_back(temp1);
-
-//TetrisForm test(100, 0, 'J');
     init();
-    // initialize SDL video
 
-
+//The frame rate regulator
+Timer fps;
 
     // program main loop
     bool done = false;
     while (!done)
     {
+        fps.start(); //Start fps timer
         // message processing loop
 
         while (SDL_PollEvent(&event))
@@ -91,6 +85,12 @@ int main ( int argc, char** argv )
         all_blocks[i].draw();
         }
 
+
+        if( fps.get_ticks() < 1000 / FRAMES_PER_SECOND )
+        {
+            //Sleep the remaining frame time
+            SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
+        }
         // finally, update the screen :)
         SDL_Flip(screen);
 

@@ -89,7 +89,7 @@ void TetrisForm::move()
                         if((SDL_CollideBoundingBox(rects[a], all_blocks[i].rects[b]) == 1) and (id != all_blocks[i].id))
                         {
                             std::cout << "id: " << id << "  col with id: "<< all_blocks[i].id << " a:" <<a<<" b:"<<b<<" i:"<<i <<std::endl;
-                            std::cout << "active block: (" << rects[a].x << ", " << rects[a].y<<")  collides with: (" << all_blocks[i].rects[b].x<<", "<<all_blocks[i].rects[b].y <<") "<<std::endl;
+                            std::cout << "active block: (" << xpos << ", " << ypos<< ")  rect: (" << rects[a].x << ", " << rects[a].y<<")  collides with: (" << all_blocks[i].rects[b].x<<", "<<all_blocks[i].rects[b].y <<") "<<std::endl;
                             yspeed = 0;
 
                         }
@@ -305,18 +305,146 @@ void TetrisForm::draw()
 // Set sdl_rect after blocks
 
 //(2,1) är alltid aktiv
+//rects[3] nästa BLOCK_SIZE
+if(blocks[0][0])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos-(2 * BLOCK_SIZE);
+rects[0].y = ypos-BLOCK_SIZE;
+blocks[0][0] = false;
+}
+else if(blocks[0][1])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos-(2 * BLOCK_SIZE);
+rects[0].y = ypos;
+blocks[0][1] = false;
+}
+else if(blocks[0][2])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos-(2 * BLOCK_SIZE);
+rects[0].y = ypos+BLOCK_SIZE;
+blocks[0][2] = false;
+}
+else if(blocks[0][3])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos-(2 * BLOCK_SIZE);
+rects[0].y = ypos+(2 * BLOCK_SIZE);
+blocks[0][3] = false;
+}
+
+else if(blocks[1][0])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos-BLOCK_SIZE;
+rects[0].y = ypos-BLOCK_SIZE;
+blocks[1][0] = false;
+}
+else if(blocks[1][1])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos-BLOCK_SIZE;
+rects[0].y = ypos;
+blocks[1][1] = false;
+}
+else if(blocks[1][2])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos-BLOCK_SIZE;
+rects[0].y = ypos+BLOCK_SIZE;
+blocks[1][2] = false;
+}
+else if(blocks[1][3])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos-BLOCK_SIZE;
+rects[0].y = ypos+(2 * BLOCK_SIZE);
+blocks[1][3] = false;
+}
+
+else if(blocks[2][0])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos;
+rects[0].y = ypos-BLOCK_SIZE;
+blocks[2][0] = false;
+}
+else if(blocks[2][1])
+{
 rects[0].h  = BLOCK_SIZE;
 rects[0].w  = BLOCK_SIZE;
 rects[0].x = xpos;
 rects[0].y = ypos;
 blocks[2][1]=false;
+}
+else if(blocks[2][2])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos;
+rects[0].y = ypos+BLOCK_SIZE;
+blocks[2][2] = false;
+}
+else if(blocks[2][3])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos;
+rects[0].y = ypos+ (2 * BLOCK_SIZE);
+blocks[2][3] = false;
+}
+
+else if(blocks[3][0])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos+BLOCK_SIZE;
+rects[0].y = ypos-BLOCK_SIZE;
+blocks[3][0] = false;
+}
+else if(blocks[3][1])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos+BLOCK_SIZE;
+rects[0].y = ypos;
+blocks[3][1] = false;
+}
+else if(blocks[3][2])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos+BLOCK_SIZE;
+rects[0].y = ypos+BLOCK_SIZE;
+blocks[3][2] = false;
+}
+else if(blocks[3][3])
+{
+rects[0].h  = BLOCK_SIZE;
+rects[0].w  = BLOCK_SIZE;
+rects[0].x = xpos+BLOCK_SIZE;
+rects[0].y = ypos+ (2 * BLOCK_SIZE);
+blocks[3][3] = false;
+}
+
 
 //rects[1] nästa 15
 if(blocks[0][0])
 {
 rects[1].h  = BLOCK_SIZE;
 rects[1].w  = BLOCK_SIZE;
-rects[1].x = xpos-2 * BLOCK_SIZE;
+rects[1].x = xpos - (2 * BLOCK_SIZE);
 rects[1].y = ypos-BLOCK_SIZE;
 blocks[0][0] = false;
 }
@@ -324,7 +452,7 @@ else if(blocks[0][1])
 {
 rects[1].h  = BLOCK_SIZE;
 rects[1].w  = BLOCK_SIZE;
-rects[1].x = xpos-2 * BLOCK_SIZE;
+rects[1].x = xpos - (2 * BLOCK_SIZE);
 rects[1].y = ypos;
 blocks[0][1] = false;
 }
@@ -332,7 +460,7 @@ else if(blocks[0][2])
 {
 rects[1].h  = BLOCK_SIZE;
 rects[1].w  = BLOCK_SIZE;
-rects[1].x = xpos-2 * BLOCK_SIZE;
+rects[1].x = xpos-(2 * BLOCK_SIZE);
 rects[1].y = ypos+BLOCK_SIZE;
 blocks[0][2] = false;
 }
@@ -340,8 +468,8 @@ else if(blocks[0][3])
 {
 rects[1].h  = BLOCK_SIZE;
 rects[1].w  = BLOCK_SIZE;
-rects[1].x = xpos-2 * BLOCK_SIZE;
-rects[1].y = ypos+2 * BLOCK_SIZE;
+rects[1].x = xpos-(2 * BLOCK_SIZE);
+rects[1].y = ypos+(2 * BLOCK_SIZE);
 blocks[0][3] = false;
 }
 
@@ -374,10 +502,9 @@ else if(blocks[1][3])
 rects[1].h  = BLOCK_SIZE;
 rects[1].w  = BLOCK_SIZE;
 rects[1].x = xpos-BLOCK_SIZE;
-rects[1].y = ypos+2 * BLOCK_SIZE;
+rects[1].y = ypos+(2 * BLOCK_SIZE);
 blocks[1][3] = false;
 }
-
 
 else if(blocks[2][0])
 {
@@ -387,7 +514,14 @@ rects[1].x = xpos;
 rects[1].y = ypos-BLOCK_SIZE;
 blocks[2][0] = false;
 }
-// 2,1 är först och konstant
+else if(blocks[2][1])
+{
+rects[1].h  = BLOCK_SIZE;
+rects[1].w  = BLOCK_SIZE;
+rects[1].x = xpos;
+rects[1].y = ypos;
+blocks[2][1]=false;
+}
 else if(blocks[2][2])
 {
 rects[1].h  = BLOCK_SIZE;
@@ -401,7 +535,7 @@ else if(blocks[2][3])
 rects[1].h  = BLOCK_SIZE;
 rects[1].w  = BLOCK_SIZE;
 rects[1].x = xpos;
-rects[1].y = ypos+2 * BLOCK_SIZE;
+rects[1].y = ypos+(2 * BLOCK_SIZE);
 blocks[2][3] = false;
 }
 
@@ -434,7 +568,7 @@ else if(blocks[3][3])
 rects[1].h  = BLOCK_SIZE;
 rects[1].w  = BLOCK_SIZE;
 rects[1].x = xpos+BLOCK_SIZE;
-rects[1].y = ypos+2 * BLOCK_SIZE;
+rects[1].y = ypos+(2 * BLOCK_SIZE);
 blocks[3][3] = false;
 }
 
@@ -444,7 +578,7 @@ if(blocks[0][0])
 {
 rects[2].h  = BLOCK_SIZE;
 rects[2].w  = BLOCK_SIZE;
-rects[2].x = xpos-2 * BLOCK_SIZE;
+rects[2].x = xpos-(2 * BLOCK_SIZE);
 rects[2].y = ypos-BLOCK_SIZE;
 blocks[0][0] = false;
 }
@@ -452,7 +586,7 @@ else if(blocks[0][1])
 {
 rects[2].h  = BLOCK_SIZE;
 rects[2].w  = BLOCK_SIZE;
-rects[2].x = xpos-2 * BLOCK_SIZE;
+rects[2].x = xpos-(2 * BLOCK_SIZE);
 rects[2].y = ypos;
 blocks[0][1] = false;
 }
@@ -460,7 +594,7 @@ else if(blocks[0][2])
 {
 rects[2].h  = BLOCK_SIZE;
 rects[2].w  = BLOCK_SIZE;
-rects[2].x = xpos-2 * BLOCK_SIZE;
+rects[2].x = xpos-(2 * BLOCK_SIZE);
 rects[2].y = ypos+BLOCK_SIZE;
 blocks[0][2] = false;
 }
@@ -468,8 +602,8 @@ else if(blocks[0][3])
 {
 rects[2].h  = BLOCK_SIZE;
 rects[2].w  = BLOCK_SIZE;
-rects[2].x = xpos-2 * BLOCK_SIZE;
-rects[2].y = ypos+2 * BLOCK_SIZE;
+rects[2].x = xpos-(2 * BLOCK_SIZE);
+rects[2].y = ypos+(2 * BLOCK_SIZE);
 blocks[0][3] = false;
 }
 
@@ -502,7 +636,7 @@ else if(blocks[1][3])
 rects[2].h  = BLOCK_SIZE;
 rects[2].w  = BLOCK_SIZE;
 rects[2].x = xpos-BLOCK_SIZE;
-rects[2].y = ypos+2 * BLOCK_SIZE;
+rects[2].y = ypos+(2 * BLOCK_SIZE);
 blocks[1][3] = false;
 }
 
@@ -515,7 +649,14 @@ rects[2].x = xpos;
 rects[2].y = ypos-BLOCK_SIZE;
 blocks[2][0] = false;
 }
-// 2,1 är först och konstant
+else if(blocks[2][1])
+{
+rects[2].h  = BLOCK_SIZE;
+rects[2].w  = BLOCK_SIZE;
+rects[2].x = xpos;
+rects[2].y = ypos;
+blocks[2][1]=false;
+}
 else if(blocks[2][2])
 {
 rects[2].h  = BLOCK_SIZE;
@@ -529,7 +670,7 @@ else if(blocks[2][3])
 rects[2].h  = BLOCK_SIZE;
 rects[2].w  = BLOCK_SIZE;
 rects[2].x = xpos;
-rects[2].y = ypos+2 * BLOCK_SIZE;
+rects[2].y = ypos+(2 * BLOCK_SIZE);
 blocks[2][3] = false;
 }
 
@@ -562,41 +703,42 @@ else if(blocks[3][3])
 rects[2].h  = BLOCK_SIZE;
 rects[2].w  = BLOCK_SIZE;
 rects[2].x = xpos+BLOCK_SIZE;
-rects[2].y = ypos+2 * BLOCK_SIZE;
+rects[2].y = ypos+ (2 * BLOCK_SIZE);
 blocks[3][3] = false;
 }
-
-
-
 
 //rects[3] nästa BLOCK_SIZE
 if(blocks[0][0])
 {
 rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
-rects[3].x = xpos-2 * BLOCK_SIZE;
+rects[3].x = xpos-(2 * BLOCK_SIZE);
 rects[3].y = ypos-BLOCK_SIZE;
+blocks[0][0] = false;
 }
 else if(blocks[0][1])
 {
 rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
-rects[3].x = xpos-2 * BLOCK_SIZE;
+rects[3].x = xpos-(2 * BLOCK_SIZE);
 rects[3].y = ypos;
+blocks[0][1] = false;
 }
 else if(blocks[0][2])
 {
 rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
-rects[3].x = xpos-2 * BLOCK_SIZE;
+rects[3].x = xpos-(2 * BLOCK_SIZE);
 rects[3].y = ypos+BLOCK_SIZE;
+blocks[0][2] = false;
 }
 else if(blocks[0][3])
 {
 rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
-rects[3].x = xpos-2 * BLOCK_SIZE;
-rects[3].y = ypos+2 * BLOCK_SIZE;
+rects[3].x = xpos- (2 * BLOCK_SIZE);
+rects[3].y = ypos+ (2 * BLOCK_SIZE);
+blocks[0][3] = false;
 }
 
 else if(blocks[1][0])
@@ -605,6 +747,7 @@ rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos-BLOCK_SIZE;
 rects[3].y = ypos-BLOCK_SIZE;
+blocks[1][0] = false;
 }
 else if(blocks[1][1])
 {
@@ -612,6 +755,7 @@ rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos-BLOCK_SIZE;
 rects[3].y = ypos;
+blocks[1][1] = false;
 }
 else if(blocks[1][2])
 {
@@ -619,13 +763,15 @@ rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos-BLOCK_SIZE;
 rects[3].y = ypos+BLOCK_SIZE;
+blocks[1][2] = false;
 }
 else if(blocks[1][3])
 {
 rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos-BLOCK_SIZE;
-rects[3].y = ypos+2 * BLOCK_SIZE;
+rects[3].y = ypos+(2 * BLOCK_SIZE);
+blocks[1][3] = false;
 }
 
 else if(blocks[2][0])
@@ -634,21 +780,32 @@ rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos;
 rects[3].y = ypos-BLOCK_SIZE;
+blocks[2][0] = false;
 }
-// 2,1 är först och konstant
+else if(blocks[2][1])
+{
+rects[3].h  = BLOCK_SIZE;
+rects[3].w  = BLOCK_SIZE;
+rects[3].x = xpos;
+rects[3].y = ypos;
+blocks[2][1]=false;
+}
 else if(blocks[2][2])
 {
 rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos;
 rects[3].y = ypos+BLOCK_SIZE;
+blocks[2][2] = false;
 }
 else if(blocks[2][3])
 {
 rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos;
-rects[3].y = ypos+2 * BLOCK_SIZE;
+rects[3].y = ypos+ (2 * BLOCK_SIZE);
+blocks[2][3] = false;
+
 }
 
 else if(blocks[3][0])
@@ -657,6 +814,8 @@ rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos+BLOCK_SIZE;
 rects[3].y = ypos-BLOCK_SIZE;
+blocks[3][0] = false;
+
 }
 else if(blocks[3][1])
 {
@@ -664,6 +823,8 @@ rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos+BLOCK_SIZE;
 rects[3].y = ypos;
+blocks[3][1] = false;
+
 }
 else if(blocks[3][2])
 {
@@ -671,13 +832,17 @@ rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos+BLOCK_SIZE;
 rects[3].y = ypos+BLOCK_SIZE;
+blocks[3][2] = false;
+
 }
 else if(blocks[3][3])
 {
 rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos+BLOCK_SIZE;
-rects[3].y = ypos+2 * BLOCK_SIZE;
+rects[3].y = ypos+ (2 * BLOCK_SIZE);
+blocks[3][3] = false;
+
 }
 
 //draw tetris block to scrren
