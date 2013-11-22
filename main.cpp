@@ -16,6 +16,10 @@ int main ( int argc, char** argv )
 {
     init();
 
+TetrisForm tet(150, 350, false, random_block());
+
+all_blocks.push_back(tet);
+
 //The frame rate regulator
 Timer fps;
 
