@@ -82,9 +82,18 @@ void TetrisForm::handle_input()
             case SDLK_LEFT: xpos -= BLOCK_SIZE; break;
             case SDLK_RIGHT: xpos += BLOCK_SIZE; break;
             case SDLK_UP: TetrisForm::turn(); break;
+            case SDLK_DOWN: yspeed += 4; break;
            default: ;
         }
 	}
+	if(event.type == SDL_KEYUP)
+    {
+        switch( event.key.keysym.sym )
+        {
+            case SDLK_DOWN: yspeed -= 4; break;
+           default: ;
+        }
+    }
 	}
 return;
 }
