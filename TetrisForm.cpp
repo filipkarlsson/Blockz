@@ -59,9 +59,23 @@ void TetrisForm::handle_input()
 {
     if(yspeed>0)
     {
+        bool free_to_move  = true;
+        for(unsigned int i=0; i < all_blocks.size(); i++)
+            {
+                for(int a=0; a<=3; a++)
+                {
+                    for(int b=0; b<=3; b++)
+                    {
+                        if((SDL_CollideBoundingBox(rects[a], all_blocks[i].rects[b]) == 1) and (id != all_blocks[i].id))
+                        {
+                            free_to_move = false;
 
+                        }
+                    }
+                }
+            }
 
-	if(event.type == SDL_KEYDOWN)
+    if((event.type == SDL_KEYDOWN) and (free_to_move))
 	{
 		switch( event.key.keysym.sym )
         {
@@ -82,14 +96,14 @@ void TetrisForm::move()
     {
          for(unsigned int i=0; i < all_blocks.size(); i++)
             {
-                for(int a=0; a<3; a++)
+                for(int a=0; a<=3; a++)
                 {
-                    for(int b=0; b<3; b++)
+                    for(int b=0; b<=3; b++)
                     {
-                        if((SDL_CollideBoundingBox(rects[a], all_blocks[i].rects[b]) == 1) and (id != all_blocks[i].id))
+                        if((col_y(rects[a], all_blocks[i].rects[b]) == 1) and (id != all_blocks[i].id))
                         {
                             std::cout << "id: " << id << "  col with id: "<< all_blocks[i].id << " a:" <<a<<" b:"<<b<<" i:"<<i <<std::endl;
-                            std::cout << "active block: (" << xpos << ", " << ypos<< ")  rect: (" << rects[a].x << ", " << rects[a].y<<")  collides with: (" << all_blocks[i].rects[b].x<<", "<<all_blocks[i].rects[b].y <<") "<<std::endl;
+                            std::cout << "active block: (" << xpos << ", " << ypos<< ")  rect: (" << rects[a].x << ", " << rects[a].y<<") W:"<< rects[a].w<<" collides with: (" << all_blocks[i].rects[b].x<<", "<<all_blocks[i].rects[b].y <<") "<<std::endl;
                             yspeed = 0;
 
                         }

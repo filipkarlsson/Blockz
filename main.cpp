@@ -16,7 +16,7 @@ int main ( int argc, char** argv )
 {
     init();
 
-TetrisForm tet(150, 350, false, random_block());
+TetrisForm tet(150, 400, false, 'I');
 
 all_blocks.push_back(tet);
 
@@ -50,7 +50,7 @@ Timer fps;
 
                     if(event.key.keysym.sym == SDLK_SPACE)
                     {
-                        TetrisForm temp(100, 100, true, random_block());
+                        TetrisForm temp(150, 10, true, random_block());
                         all_blocks.push_back(temp);
                     }
                     break;
