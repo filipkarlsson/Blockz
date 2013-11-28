@@ -1,6 +1,7 @@
 #include "TetrisForm.h"
 #include <SDL/SDL.h>
 #include <iostream>
+#include <cmath>
 #include "var.h"
 #include "func.h"
 TetrisForm::TetrisForm(int x, int y, bool falling, char sort)
@@ -11,7 +12,7 @@ TetrisForm::TetrisForm(int x, int y, bool falling, char sort)
     type = sort;
     if(falling)
     {
-    yspeed = 2;
+    yspeed = 1;
     }
     else
     {
@@ -86,7 +87,7 @@ void TetrisForm::handle_input()
            default: ;
         }
 	}
-	if(event.type == SDL_KEYUP)
+	if((event.type == SDL_KEYUP) and (free_to_move))
     {
         switch( event.key.keysym.sym )
         {
@@ -127,6 +128,13 @@ void TetrisForm::move()
 
 
     ypos += yspeed;
+
+    if(yspeed == 0)
+    {
+        ypos = round(ypos, BLOCK_SIZE);
+
+    }
+
 }
 
 

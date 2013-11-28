@@ -186,7 +186,7 @@ bool init()
    }
 
    //Set up the screen
-   screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
+   screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_FULLSCREEN);
 
    //If there was an error in setting up the screen
    if( screen == NULL )
@@ -222,6 +222,13 @@ font = TTF_OpenFont( "trado.ttf", 28 );*/
 
 void clean()
 {
+}
+
+int round(int x, int f)
+{
+    int p = x/f;
+
+    return p * f;
 }
 
 

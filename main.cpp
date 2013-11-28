@@ -14,9 +14,9 @@
 
 int main ( int argc, char** argv )
 {
-    init();
+init();
 
-TetrisForm tet(150, 400, false, 'I');
+TetrisForm tet(200, 400, false, 'I');
 
 all_blocks.push_back(tet);
 
@@ -50,7 +50,8 @@ Timer fps;
 
                     if(event.key.keysym.sym == SDLK_SPACE)
                     {
-                        TetrisForm temp(150, 10, true, random_block());
+                        TetrisForm temp(200, 0, true, random_block());
+
                         all_blocks.push_back(temp);
                     }
                     break;
@@ -80,7 +81,7 @@ Timer fps;
         // DRAWING STARTS HERE
         //all_blocks[index].print();
         // clear screen
-        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
+        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 153, 204));
 
         //draw tetrs blocks to screen
 
