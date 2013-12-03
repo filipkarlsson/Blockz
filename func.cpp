@@ -4,6 +4,38 @@
 #include <string>
 #include "var.h"
 
+
+
+bool init()
+{
+   //Initialize all SDL subsystems
+   if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
+   {
+       return false;
+   }
+
+   //Set up the screen
+   screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_FULLSCREEN);
+
+   //If there was an error in setting up the screen
+   if( screen == NULL )
+   {
+       return false;
+   }
+
+/*if( TTF_Init() == -1 )
+{
+return false;
+}
+*/
+
+   //Set the window caption
+   SDL_WM_SetCaption( "BOB", NULL );
+
+   //If everything initialized fine
+   return true;
+}
+
 //returns a random char representing one of seven teris blocks
 char random_block()
 {
@@ -109,6 +141,27 @@ int SDL_CollideBoundingBox(SDL_Rect a , SDL_Rect b)
 	return 1;				//bounding boxes intersect
 }
 
+int coll_left(SDL_Rect a , SDL_Rect b)
+{
+    if(b.x + b.w < a.x +1 )	return 0;	//just checking if their
+	if(b.x+1 > a.x + a.w)	return 0;	//bounding boxes even touch
+	if(b.y + b.h < a.y)	return 0;
+	if(b.y > a.y + a.h)	return 0;
+	return 1;				//bounding boxes intersect
+}
+
+
+int coll_right(SDL_Rect a , SDL_Rect b)
+{
+	//if((b.x + b.w <= a.x + 1) and (b.x + b.w + 1 > a.x - BLOCK_SIZE))	return 0;	//just checking if their
+	if(b.x - b.w < a.x)	return 0;	//just checking if their
+	if(b.x > a.x + a.w)	return 0;	//bounding boxes even touch
+
+	if(b.y + b.h < a.y)	return 0;
+	if(b.y > a.y + a.h)	return 0;
+	return 1;					//bounding boxes intersect
+}
+
 int col_y(SDL_Rect a , SDL_Rect b)
 {
     //bounding boxes even touch
@@ -130,92 +183,25 @@ int col_x(SDL_Rect a , SDL_Rect b)
 	return 1;				//bounding boxes intersect
 }
 
-
-bool check_collision( SDL_Rect A, SDL_Rect B )
+bool free_move_right(SDL_Rect a, SDL_Rect b)
 {
-   //The sides of the rectangles
-   int leftA, leftB;
-   int rightA, rightB;
-   int topA, topB;
-   int bottomA, bottomB;
+    if((a.x + a.w >= b.x) and (a.y + a.h > b.y) and (a.y < b.y + b.h)) return false;
+    return true;
 
-   //Calculate the sides of rect A
-   leftA = A.x;
-   rightA = A.x + A.w;
-   topA = A.y;
-   bottomA = A.y + A.h;
-
-   //Calculate the sides of rect B
-   leftB = B.x;
-   rightB = B.x + B.w;
-   topB = B.y;
-   bottomB = B.y + B.h;
-
-   //If any of the sides from A are outside of B
-   if( bottomA <= topB )
-   {
-       return false;
-   }
-
-   if( topA >= bottomB )
-   {
-       return false;
-   }
-
-   if( rightA <= leftB )
-   {
-       return false;
-   }
-
-   if( leftA >= rightB )
-   {
-       return false;
-   }
-
-   //If none of the sides from A are outside B
-   return true;
 }
 
-
-bool init()
+bool free_move_left(SDL_Rect a, SDL_Rect b)
 {
-   //Initialize all SDL subsystems
-   if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
-   {
-       return false;
-   }
-
-   //Set up the screen
-   screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_FULLSCREEN);
-
-   //If there was an error in setting up the screen
-   if( screen == NULL )
-   {
-       return false;
-   }
-
-/*if( TTF_Init() == -1 )
-   {
-       return false;
-   }
-   */
-
-   //Set the window caption
-   SDL_WM_SetCaption( "BOB", NULL );
-
-   //If everything initialized fine
-   return true;
+    if((a.x <= b.x + b.w) and (a.y + a.h > b.y) and (a.y < b.y + b.h)) return false;
+    return true;
 }
+
 
 void load_files()
 {
-/*menyBild = load_image("meny.bmp");
-mark = load_image("mark.bmp");
-stjarna = load_image("star.bmp");
-kanon = load_image("kanon.bmp");
-skott = load_image("shot.bmp");
-start = load_image("start.bmp");
-font = TTF_OpenFont( "trado.ttf", 28 );*/
+
+block_2 = SDL_LoadBMP("Spirit_turquoise-block-2.bmp");
+
 }
 
 

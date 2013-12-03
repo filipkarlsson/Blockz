@@ -12,7 +12,7 @@ TetrisForm::TetrisForm(int x, int y, bool falling, char sort)
     type = sort;
     if(falling)
     {
-    yspeed = 1;
+    yspeed = 3;
     }
     else
     {
@@ -60,39 +60,71 @@ void TetrisForm::handle_input()
 {
     if(yspeed>0)
     {
-        bool free_to_move  = true;
+        bool free_to_move_left  = true;
+        bool free_to_move_right  = true;
+        bool free_to_move = true;
+
         for(unsigned int i=0; i < all_blocks.size(); i++)
             {
                 for(int a=0; a<=3; a++)
                 {
                     for(int b=0; b<=3; b++)
                     {
-                        if((SDL_CollideBoundingBox(rects[a], all_blocks[i].rects[b]) == 1) and (id != all_blocks[i].id))
+                        if((free_move_left(rects[a], all_blocks[i].rects[b]) == false) and (id != all_blocks[i].id))
+                        {
+                            free_to_move_left = false;
+                            //std::cout <<"x: "<< rects[a].h << " w:" << rects[a].w<<std::endl;
+
+                        }
+                        if((free_move_right(rects[a], all_blocks[i].rects[b]) == false) and (id != all_blocks[i].id))
+                        {
+                            free_to_move_right = false;
+
+                        }
+                        if((col_y(rects[a], all_blocks[i].rects[b]) == 1) and (id != all_blocks[i].id))
                         {
                             free_to_move = false;
 
                         }
+
                     }
                 }
             }
 
-    if((event.type == SDL_KEYDOWN) and (free_to_move))
+    if((event.type == SDL_KEYDOWN) and (free_to_move_left))
 	{
 		switch( event.key.keysym.sym )
         {
             case SDLK_LEFT: xpos -= BLOCK_SIZE; break;
-            case SDLK_RIGHT: xpos += BLOCK_SIZE; break;
-            case SDLK_UP: TetrisForm::turn(); break;
-            case SDLK_DOWN: yspeed += 4; break;
-           default: ;
+           default: break;
         }
 	}
+
+	if((event.type == SDL_KEYDOWN) and (free_to_move_right))
+	{
+		switch( event.key.keysym.sym )
+        {
+            case SDLK_RIGHT: xpos += BLOCK_SIZE; break;
+           default: break;
+        }
+	}
+
+	if((event.type == SDL_KEYDOWN) and (free_to_move))
+    {
+        switch( event.key.keysym.sym )
+        {
+            case SDLK_UP: TetrisForm::turn(); break;
+            case SDLK_DOWN: yspeed += 4; break;
+           default: break;
+        }
+    }
+
 	if((event.type == SDL_KEYUP) and (free_to_move))
     {
         switch( event.key.keysym.sym )
         {
             case SDLK_DOWN: yspeed -= 4; break;
-           default: ;
+           default: break;
         }
     }
 	}
@@ -877,11 +909,16 @@ blocks[3][3] = false;
 }
 
 //draw tetris block to scrren
+apply_surface( rects[0].x , rects[0].y, block_2, screen, NULL );
+apply_surface( rects[1].x , rects[1].y, block_2, screen, NULL );
+apply_surface( rects[2].x , rects[2].y, block_2, screen, NULL );
+apply_surface( rects[3].x , rects[3].y, block_2, screen, NULL );
+/*
 SDL_FillRect(screen, &rects[0], SDL_MapRGB(screen->format, 200, 200, 200));
 SDL_FillRect(screen, &rects[1], SDL_MapRGB(screen->format, 0, 200, 0));
 SDL_FillRect(screen, &rects[2], SDL_MapRGB(screen->format, 0, 0, 200));
 SDL_FillRect(screen, &rects[3], SDL_MapRGB(screen->format, 200, 0, 0));
-
+*/
 }
 
 

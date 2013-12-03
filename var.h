@@ -8,6 +8,8 @@ extern const int SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, FRAMES_PER_SECOND;
 extern SDL_Event event;
 extern SDL_Surface* screen;
 
+extern SDL_Surface* block_2;
+
 extern const int BLOCK_SIZE;
 
 
