@@ -12,7 +12,7 @@ TetrisForm::TetrisForm(int x, int y, bool falling, char typ)
     type = typ;
     if(falling)
     {
-    yspeed = 2;
+    yspeed = 4;
     }
     else
     {
@@ -70,6 +70,7 @@ void TetrisForm::handle_input()
                 {
                     for(int b=0; b<=3; b++)
                     {
+                      //check if "bugg 1" is interfering
                         if((free_move_left(rects[a], all_blocks[i].rects[b]) == false) and (id != all_blocks[i].id))
                         {
                             free_to_move_left = false;
@@ -86,7 +87,6 @@ void TetrisForm::handle_input()
                             free_to_move = false;
 
                         }
-
                     }
                 }
             }
@@ -144,9 +144,13 @@ void TetrisForm::move()
                     {
                         if((col_y(rects[a], all_blocks[i].rects[b]) == 1) and (id != all_blocks[i].id))
                         {
-                            std::cout << "id: " << id << "  col with id: "<< all_blocks[i].id << " a:" <<a<<" b:"<<b<<" i:"<<i <<std::endl;
-                            std::cout << "active block: (" << xpos << ", " << ypos<< ")  rect: (" << rects[a].x << ", " << rects[a].y<<") W:"<< rects[a].w<<" collides with: (" << all_blocks[i].rects[b].x<<", "<<all_blocks[i].rects[b].y <<") "<<std::endl;
-                            yspeed = 0;
+                            if((rects[a].w == BLOCK_SIZE) and (all_blocks[i].rects[b].w == BLOCK_SIZE)){
+                                std::cout << "id: " << id << "  col with id: "<< all_blocks[i].id << " a:" <<a<<" b:"<<b<<" i:"<<i <<std::endl;
+                                std::cout << "active block: (" << xpos << ", " << ypos<< ")  rect: (" << rects[a].x << ", " << rects[a].y<<") W:"<< rects[a].w<<" collides with: (" << all_blocks[i].rects[b].x<<", "<<all_blocks[i].rects[b].y <<") "<<std::endl;
+                                yspeed = 0;
+
+
+                            }
 
                         }
 
