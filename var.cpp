@@ -8,7 +8,7 @@ SDL_Surface* block_2;
 const int SCREEN_WIDTH = 1440;
 const int SCREEN_HEIGHT = 900;
 const int SCREEN_BPP = 16;
-const int FRAMES_PER_SECOND = 40;
+const int FRAMES_PER_SECOND = 60;
 
 SDL_Event event;
 

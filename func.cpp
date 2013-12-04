@@ -200,7 +200,7 @@ bool free_move_left(SDL_Rect a, SDL_Rect b)
 void load_files()
 {
 
-block_2 = SDL_LoadBMP("Spirit_turquoise-block-2.1.bmp");
+block_2 = SDL_LoadBMP("Spirit_green-block-2.1.bmp");
 
 }
 

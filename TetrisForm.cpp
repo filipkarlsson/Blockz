@@ -12,7 +12,7 @@ TetrisForm::TetrisForm(int x, int y, bool falling, char sort)
     type = sort;
     if(falling)
     {
-    yspeed = 3;
+    yspeed = 2;
     }
     else
     {
