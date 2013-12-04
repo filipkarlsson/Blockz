@@ -183,14 +183,14 @@ int col_x(SDL_Rect a , SDL_Rect b)
 bool free_move_right(SDL_Rect a, SDL_Rect b)
 {
 
-    if((a.x + a.w == b.x) and (a.y + a.h > b.y) and (a.y < b.y + b.h)) return false;
+    if((a.x + a.w == b.x) and (a.y + a.h - 11 > b.y) and (a.y < b.y + b.h - 5)) return false;
     return true;
 
 }
 
 bool free_move_left(SDL_Rect a, SDL_Rect b)
 {
-     if((a.x == b.x + b.w) and (a.y + a.h > b.y) and (a.y < b.y + b.h)) return false;
+     if((a.x == b.x + b.w) and (a.y + a.h - 11 > b.y) and (a.y < b.y + b.h - 5)) return false;
     return true;
 }
 
