@@ -17,6 +17,7 @@ int main ( int argc, char** argv )
 load_files();
 init();
 
+
 TetrisForm tet(round(SCREEN_WIDTH/2, BLOCK_SIZE) ,SCREEN_HEIGHT - BLOCK_SIZE, false, 'I');
 
 all_blocks.push_back(tet);

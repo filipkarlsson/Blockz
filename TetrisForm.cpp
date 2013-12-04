@@ -4,12 +4,12 @@
 #include <cmath>
 #include "var.h"
 #include "func.h"
-TetrisForm::TetrisForm(int x, int y, bool falling, char sort)
+TetrisForm::TetrisForm(int x, int y, bool falling, char typ)
 {
     //ctor
     xpos = x;
     ypos = y;
-    type = sort;
+    type = typ;
     if(falling)
     {
     yspeed = 2;
@@ -866,7 +866,7 @@ else if(blocks[2][3])
 rects[3].h  = BLOCK_SIZE;
 rects[3].w  = BLOCK_SIZE;
 rects[3].x = xpos;
-rects[3].y = ypos+ (2 * BLOCK_SIZE);
+rects[3].y = ypos + (2 * BLOCK_SIZE);
 blocks[2][3] = false;
 
 }
@@ -909,16 +909,19 @@ blocks[3][3] = false;
 }
 
 //draw tetris block to scrren
-apply_surface( rects[0].x , rects[0].y, block_2, screen, NULL );
-apply_surface( rects[1].x , rects[1].y, block_2, screen, NULL );
-apply_surface( rects[2].x , rects[2].y, block_2, screen, NULL );
-apply_surface( rects[3].x , rects[3].y, block_2, screen, NULL );
-/*
-SDL_FillRect(screen, &rects[0], SDL_MapRGB(screen->format, 200, 200, 200));
-SDL_FillRect(screen, &rects[1], SDL_MapRGB(screen->format, 0, 200, 0));
-SDL_FillRect(screen, &rects[2], SDL_MapRGB(screen->format, 0, 0, 200));
-SDL_FillRect(screen, &rects[3], SDL_MapRGB(screen->format, 200, 0, 0));
-*/
+SDL_Surface* block_p ;
+if(type =='I') block_p = block_pic[TURQUOISE];
+else if(type=='O') block_p = block_pic[RED];
+else if(type=='S') block_p = block_pic[VIOLET];
+else if(type=='L') block_p = block_pic[GREEN];
+else if(type=='Z') block_p = block_pic[UBUNTU];
+else if(type=='T') block_p = block_pic[YELLOW];
+else if(type=='J') block_p = block_pic[PINK];
+
+apply_surface( rects[0].x , rects[0].y, block_p, screen, NULL );
+apply_surface( rects[1].x , rects[1].y, block_p, screen, NULL );
+apply_surface( rects[2].x , rects[2].y, block_p, screen, NULL );
+apply_surface( rects[3].x , rects[3].y, block_p, screen, NULL );
 }
 
 

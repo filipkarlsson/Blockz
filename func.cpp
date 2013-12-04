@@ -200,7 +200,13 @@ bool free_move_left(SDL_Rect a, SDL_Rect b)
 void load_files()
 {
 
-block_2 = SDL_LoadBMP("Spirit_green-block-2.1.bmp");
+block_pic[0] = SDL_LoadBMP("Spirit_green-block-2.1.bmp");
+block_pic[1] = SDL_LoadBMP("Spirit_pink-block-2.1.bmp");
+block_pic[2] = SDL_LoadBMP("Spirit_ubuntu-block-2.1.bmp");
+block_pic[3] = SDL_LoadBMP("Spirit_violet-block-2.1.bmp");
+block_pic[4] = SDL_LoadBMP("Spirit_yellow-block-2.1.bmp");
+block_pic[5] = SDL_LoadBMP("Spirit_turquoise-block-2.1.bmp");
+block_pic[6] = SDL_LoadBMP("Spirit_red-block-2.1.bmp");
 
 }
 
