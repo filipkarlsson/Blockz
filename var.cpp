@@ -21,6 +21,8 @@ extern const int VIOLET = 3;
 extern const int YELLOW = 4;
 extern const int TURQUOISE = 5;
 extern const int RED = 6;
+extern const int GROUND = 7;
+
 
 std::vector<TetrisForm> all_blocks;
 
