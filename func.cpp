@@ -214,12 +214,22 @@ void clean()
 {
 }
 
+/*int random_pos(int random)
+{
+srand(time(NULL));
+random = rand() % random;
+
+
+return random;
+}
+*/
 int round(int x, int f)
 {
     int p = x/f;
 
     return p * f;
 }
+
 
 
 
