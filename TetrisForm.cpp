@@ -182,13 +182,13 @@ void TetrisForm::move()
 }*/
 if(new_block and in_game){
 
-    TetrisForm temp(round(SCREEN_WIDTH/2, BLOCK_SIZE), 0, true, random_block());
+    TetrisForm temp(round(random_pos(), BLOCK_SIZE), 0, true, random_block());
     all_blocks.push_back(temp);
 
 }
 else if (below and in_game) {
     in_game = false;
-    TetrisForm temp(round(SCREEN_WIDTH/2, BLOCK_SIZE), 0, true, random_block());
+    TetrisForm temp(round(random_pos(), BLOCK_SIZE), 0, true, random_block());
     all_blocks.push_back(temp);
 
     }

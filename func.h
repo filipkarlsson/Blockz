@@ -13,6 +13,6 @@ int coll_left(SDL_Rect a , SDL_Rect b);
 int coll_right(SDL_Rect a , SDL_Rect b);
 bool free_move_right(SDL_Rect a, SDL_Rect b);
 bool free_move_left(SDL_Rect a, SDL_Rect b);
-//int random_pos(int random);
+int random_pos();
 int round(int x, int f);
 #endif // FUNC_H

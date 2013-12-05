@@ -214,15 +214,14 @@ void clean()
 {
 }
 
-/*int random_pos(int random)
+int random_pos()
 {
 srand(time(NULL));
-random = rand() % random;
-
-
+int random;
+random = rand() % SCREEN_WIDTH;
 return random;
 }
-*/
+
 int round(int x, int f)
 {
     int p = x/f;
