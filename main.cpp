@@ -3,7 +3,7 @@
 #else
     #include <stdlib.h>
 #endif
-
+#include <ctime>
 #include <SDL/SDL.h>
 #include <vector>
 #include <iostream>
@@ -52,7 +52,8 @@ Timer fps;
 
                     if(event.key.keysym.sym == SDLK_SPACE)
                     {
-                        TetrisForm temp(round(SCREEN_WIDTH/2, BLOCK_SIZE), 0, true, random_block());
+
+                        TetrisForm temp(round(random_pos(), BLOCK_SIZE), 0, true, random_block());
 
                         all_blocks.push_back(temp);
                     }
