@@ -26,6 +26,8 @@ class TetrisForm
         SDL_Rect rects[4];
         int rotation;
         int xpos, ypos, xspeed, yspeed;
+        bool in_game;
+        bool below;
 
 };
 

@@ -23,3 +23,8 @@ extern const int TURQUOISE = 5;
 extern const int RED = 6;
 
 std::vector<TetrisForm> all_blocks;
+
+
+extern const int NORMAL_SPEED = 4;
+extern const int HIGH_SPEED = 8;
+

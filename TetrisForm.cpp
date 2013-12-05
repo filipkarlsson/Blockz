@@ -12,7 +12,7 @@ TetrisForm::TetrisForm(int x, int y, bool falling, char typ)
     type = typ;
     if(falling)
     {
-    yspeed = 4;
+    yspeed = NORMAL_SPEED;
     }
     else
     {
@@ -22,6 +22,8 @@ TetrisForm::TetrisForm(int x, int y, bool falling, char typ)
 
     id = all_blocks.size();
 
+    in_game = true;
+    below = false;
 
 }
 
@@ -116,7 +118,7 @@ void TetrisForm::handle_input()
         switch( event.key.keysym.sym )
         {
             case SDLK_UP: TetrisForm::turn(); break;
-            case SDLK_DOWN: yspeed += 4; break;
+            case SDLK_DOWN: yspeed = HIGH_SPEED; break;
            default: break;
         }
     }
@@ -125,7 +127,7 @@ void TetrisForm::handle_input()
     {
         switch( event.key.keysym.sym )
         {
-            case SDLK_DOWN: yspeed -= 4; break;
+            case SDLK_DOWN: yspeed = NORMAL_SPEED; break;
            default: break;
         }
     }
@@ -138,22 +140,32 @@ void TetrisForm::move()
 
     if(yspeed>0)
     {
+        bool new_block = false;
          for(unsigned int i=0; i < all_blocks.size(); i++)
             {
                 for(int a=0; a<=3; a++)
                 {
                     for(int b=0; b<=3; b++)
                     {
-                        if((col_y(rects[a], all_blocks[i].rects[b]) == 1) and (id != all_blocks[i].id))
+                        if((col_y(rects[a], all_blocks[i].rects[b]) == 1) and (id != all_blocks[i].id) and all_blocks[i].in_game)
                         {
                             if((rects[a].w == BLOCK_SIZE) and (all_blocks[i].rects[b].w == BLOCK_SIZE)){ //bug 1
                                 //std::cout << "id: " << id << "  col with id: "<< all_blocks[i].id << " a:" <<a<<" b:"<<b<<" i:"<<i <<std::endl;
                                 //std::cout << "active block: (" << xpos << ", " << ypos<< ")  rect: (" << rects[a].x << ", " << rects[a].y<<") W:"<< rects[a].w<<" collides with: (" << all_blocks[i].rects[b].x<<", "<<all_blocks[i].rects[b].y <<") "<<std::endl;
+
+                                new_block=true;
                                 yspeed = 0;
+
 
 
                             }
 
+
+                        }
+
+                        if(ypos>SCREEN_HEIGHT){
+
+                                below=true;
                         }
 
 
@@ -161,6 +173,25 @@ void TetrisForm::move()
                 }
 
             }
+
+/*if((ypos > SCREEN_HEIGHT) and in_game)
+{
+    new_block = true;
+    in_game = false;
+
+}*/
+if(new_block and in_game){
+
+    TetrisForm temp(round(SCREEN_WIDTH/2, BLOCK_SIZE), 0, true, random_block());
+    all_blocks.push_back(temp);
+
+}
+else if (below and in_game) {
+    in_game = false;
+    TetrisForm temp(round(SCREEN_WIDTH/2, BLOCK_SIZE), 0, true, random_block());
+    all_blocks.push_back(temp);
+
+    }
 
     }
 

@@ -18,9 +18,13 @@ load_files();
 init();
 
 
-TetrisForm tet(round(SCREEN_WIDTH/2, BLOCK_SIZE) ,SCREEN_HEIGHT - BLOCK_SIZE, false, 'I');
+TetrisForm tet(round(SCREEN_WIDTH/2 - 200, BLOCK_SIZE) ,round(SCREEN_HEIGHT - BLOCK_SIZE, BLOCK_SIZE), false, 'I');
 
 all_blocks.push_back(tet);
+
+TetrisForm tet2(round(SCREEN_WIDTH/2, BLOCK_SIZE) ,round(0, BLOCK_SIZE), true, 'I');
+
+all_blocks.push_back(tet2);
 
 //The frame rate regulator
 Timer fps;
@@ -52,9 +56,9 @@ Timer fps;
 
                     if(event.key.keysym.sym == SDLK_SPACE)
                     {
-                        TetrisForm temp(round(SCREEN_WIDTH/2, BLOCK_SIZE), 0, true, random_block());
+                        //TetrisForm temp(round(SCREEN_WIDTH/2, BLOCK_SIZE), 0, true, random_block());
 
-                        all_blocks.push_back(temp);
+                        //all_blocks.push_back(temp);
                     }
                     break;
                 }

@@ -20,6 +20,8 @@ extern const int YELLOW;
 extern const int TURQUOISE;
 extern const int RED;
 
+extern const int NORMAL_SPEED;
+extern const int HIGH_SPEED;
 
 
 extern std::vector<TetrisForm> all_blocks;
