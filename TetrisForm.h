@@ -6,6 +6,7 @@ class TetrisForm
 {
     public:
         TetrisForm(int x, int y, bool falling, char type);
+        TetrisForm(int x, int y, bool falling, char typ, bool ground_type);
         virtual ~TetrisForm();
 
         void turn();
@@ -28,6 +29,7 @@ class TetrisForm
         int xpos, ypos, xspeed, yspeed;
         bool in_game;
         bool below;
+        bool ground;
 
 };
 

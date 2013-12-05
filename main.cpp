@@ -18,8 +18,7 @@ load_files();
 init();
 
 
-TetrisForm tet(round(SCREEN_WIDTH/2 - 200, BLOCK_SIZE) ,round(SCREEN_HEIGHT - BLOCK_SIZE, BLOCK_SIZE), false, 'I');
-
+TetrisForm tet(round(SCREEN_WIDTH/2 - 200, BLOCK_SIZE) ,round(SCREEN_HEIGHT - BLOCK_SIZE, BLOCK_SIZE), false, 'I', true);
 all_blocks.push_back(tet);
 
 TetrisForm tet2(round(SCREEN_WIDTH/2, BLOCK_SIZE) ,round(0, BLOCK_SIZE), true, 'I');

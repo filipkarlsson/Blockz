@@ -25,6 +25,33 @@ TetrisForm::TetrisForm(int x, int y, bool falling, char typ)
     in_game = true;
     below = false;
 
+    ground = false;
+
+}
+TetrisForm::TetrisForm(int x, int y, bool falling, char typ, bool ground_type)
+{
+    //ctor
+    xpos = x;
+    ypos = y;
+    type = typ;
+    if(falling)
+    {
+    yspeed = NORMAL_SPEED;
+    }
+    else
+    {
+    yspeed = 0;
+    }
+    rotation = 1;
+
+    id = all_blocks.size();
+
+    in_game = true;
+    below = false;
+
+    if(ground_type) ground = true;
+    else ground = false;
+
 }
 
 TetrisForm::~TetrisForm()
@@ -946,7 +973,9 @@ blocks[3][3] = false;
 }
 
 //draw tetris block to scrren
-SDL_Surface* block_p ;
+SDL_Surface* block_p;
+if(!ground)
+{
 if(type =='I') block_p = block_pic[TURQUOISE];
 else if(type=='O') block_p = block_pic[RED];
 else if(type=='S') block_p = block_pic[VIOLET];
@@ -954,6 +983,8 @@ else if(type=='L') block_p = block_pic[GREEN];
 else if(type=='Z') block_p = block_pic[UBUNTU];
 else if(type=='T') block_p = block_pic[YELLOW];
 else if(type=='J') block_p = block_pic[PINK];
+}
+else block_p = block_pic[GROUND];
 
 apply_surface( rects[0].x , rects[0].y, block_p, screen, NULL );
 apply_surface( rects[1].x , rects[1].y, block_p, screen, NULL );

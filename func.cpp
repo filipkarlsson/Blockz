@@ -205,6 +205,8 @@ block_pic[3] = SDL_LoadBMP("Spirit_violet-block-2.1.bmp");
 block_pic[4] = SDL_LoadBMP("Spirit_yellow-block-2.1.bmp");
 block_pic[5] = SDL_LoadBMP("Spirit_turquoise-block-2.1.bmp");
 block_pic[6] = SDL_LoadBMP("Spirit_red-block-2.1.bmp");
+block_pic[7] = SDL_LoadBMP("Spirit_ground-block-2.1.bmp");
+
 
 }
 
